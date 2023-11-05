@@ -61,6 +61,7 @@ Erstellen Sie die Dateien transfer und serial mit folgendem Inhalt
 -->"touch transfer"
 -->"chmod +x transfer"
 -->"echo '#!/bin/bash' >> transfer"
+-->"echo 'scp $1 pi0:/home/momefilo/ && \' >> transfer"
 -->"echo 'ssh pi0 -t "/home/momefilo/transfer.sh $1"' >> transfer"
 -->"touch serial"
 -->"chmod +x serial"
