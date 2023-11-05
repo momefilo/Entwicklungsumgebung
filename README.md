@@ -1,5 +1,6 @@
 # Entwicklungsumgebung
 Pi Pico enwicklungsumgebu
+Auf dem Entwicklungsrechner sollte der Benutzer "momefilo" aktiv sein, sonnst sind im Script die Passagen der Verzeichnisse anzupassen.
 Alle einzugebenden Befehle sehen so aus: -->"befehl"; z.B.: -->"cd .."
 und sind ohne -->" " einzugeben, innerhalb der Gaensefuesschen ist die Unterscheidung zwischen
 ein- und zweifachen Gaensefuesschen wichtig!
@@ -41,6 +42,8 @@ erstelle die ausfuehrbare Datei transfer.sh
 
 #ON THE DEVELOPING MASCHINE
 Das Pico-Sdk und Geany auf dem Entwicklungsrechner installieren
+-->"sudo apt update"
+-->"sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential geany git"
 -->"mkdir pico"
 -->"cd pico"
 -->"git clone https://github.com/raspberrypi/pico-sdk.git --branch master"
@@ -48,20 +51,13 @@ Das Pico-Sdk und Geany auf dem Entwicklungsrechner installieren
 -->"git submodule update --init"
 -->"cd .."
 -->"git clone https://github.com/raspberrypi/pico-examples.git --branch master"
--->"sudo apt update"
--->"sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential geany"
--->"cd pico-sdk"
--->"git pull"
--->"git submodule update"
-
 
 Fuegen Sie am Ende der Datei ".bashrc" folgende Zeilen hinzu
--->"echo 'export PICO_SDK_PATH=~/pico/pico-sdk' >> ~/.bashrc"
--->"echo 'export pico_serial=~/pico/serial' >> ~/.bashrc"
--->"echo 'export pico_transfer=~/pico/transfer' >> ~/.bashrc"
--->"echo 'export pico_project=~/pico/new_project' >> ~/.bashrc"
+-->"echo 'export PICO_SDK_PATH=/home/momefilo/pico/pico-sdk' >> ~/.bashrc"
+-->"echo 'export pico_serial=/home/momefilo/pico/serial' >> ~/.bashrc"
+-->"echo 'export pico_transfer=/home/momefilo/pico/transfer' >> ~/.bashrc"
+-->"echo 'export pico_project=/home/momefilo/pico/new_project' >> ~/.bashrc"
 Erstellen Sie die Dateien transfer und serial mit folgendem Inhalt
--->"cd .."
 -->"touch transfer"
 -->"chmod +x transfer"
 -->"echo '#!/bin/bash' >> transfer"
@@ -70,11 +66,16 @@ Erstellen Sie die Dateien transfer und serial mit folgendem Inhalt
 -->"chmod +x serial"
 -->"echo '#!/bin/bash' >> serial"
 -->"echo 'ssh pi0 -t "minicom -b 115200 -o -D /dev/serial0"' >> serial"
--->"mkdir projekte/remote"
+-->"mkdir projekte"
+-->"cd projekte"
+-->"mkdir remote"
+-->"cd .."
 
-Erstellen Sie die Dateien "new_project" mit folgendem Inhalt und machen Sie sie ausfuehrbar
-Copy and Paste mit dem Editor
-"
+Erstellen Sie die Dateien "new_project" mit folgendem Inhalt und machen Sie sie mit 
+-->"chmod +x new_project"
+ausfuehrbar.
+Copy and Paste mit dem Editor!
+-->"
 #!/bin/bash
 if [ $# -ne 1 ]; then
 	echo "projektname angeben!"
@@ -158,9 +159,10 @@ echo "projekt schon vorhanden!"
 fi
 "
 
-Wenn Sie nun am Entwicklungsrechner in ein Terminal ins Verzeichnis Pico wechseln, koennen Sie 
+Wenn Sie nun am Entwicklungsrechner in einem neuen Terminal (damit die Variablen geladen werden) ins Verzeichnis Pico wechseln, koennen Sie 
 durch Eingabe von: "./new_project Ihr_Projektname" direkt Geany mit einem
-Grundskelet starten. Mit F9 bilden Sie Ihr Programm erstmals um es dann 
+Grundskelet starten. Mit F9 bilden Sie Ihr Programm erstmals (vergessen Sie die main Funktion nicht hinzuzufügen;) um es dann 
 mit ^F9 immer wieder compilieren zu koennen. Das Programm wird mit F5 auf den Pico uebertragen.
-Im Geany-Menue "Erstellen" gibt es  den Eintrag "serial" welcher ein Terminal offnet,
-in dem die serielle Verbindung vom Raspi-Zero zum Pico aufgebaut wird und Sie die "printf()-Ausgaben" Ihres Programms sehen.
+Im Geany-Menue "Erstellen" gibt es  den Eintrag "serial" welcher ein Terminal oeffnet, wenn sie die serielle Verbindung
+zwichen Pi-Pico und Raspi-Zerodurch zwei drähte hergestellt haben sind die "printf()-Ausgaben" Ihres Programms sehen koennen.
+
