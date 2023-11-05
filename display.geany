@@ -48,10 +48,12 @@ file_patterns=
 base_path=/home/momefilo/pico/projekte/remote/display
 
 [files]
-current_page=2
-FILE_NAME_0=62;C;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fdisplay%2Fdisplay.c;0;4
-FILE_NAME_1=1406;C++;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fdisplay%2Finclude%2FST7735.h;0;4
-FILE_NAME_2=75;C;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fdisplay%2Finclude%2FST7735.c;0;4
+current_page=4
+FILE_NAME_0=226;C;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fdisplay%2Fdisplay.c;0;4
+FILE_NAME_1=2181;C++;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fdisplay%2Finclude%2FST7735.h;0;4
+FILE_NAME_2=3548;C;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fdisplay%2Finclude%2FST7735%2FST7735.c;0;4
+FILE_NAME_3=5612;C;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fdisplay%2Finclude%2FILI9341%2FILI9341.c;0;4
+FILE_NAME_4=292;C++;0;EUTF-8;1;1;0;%2Fhome%2Fmomefilo%2Fpico%2Fprojekte%2Fremote%2Fdisplay%2Finclude%2FILI9341.h;0;4
 
 [VTE]
 last_dir=/home/momefilo
