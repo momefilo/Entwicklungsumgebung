@@ -1,81 +1,81 @@
 # Entwicklungsumgebung
-Pi Pico enwicklungsumgebu
+Pi Pico enwicklungsumgebung\
 Auf dem Entwicklungsrechner sollte der Benutzer "momefilo" aktiv sein, sonnst sind im Script die Passagen der Verzeichnisse anzupassen.
 Alle einzugebenden Befehle sehen so aus: -->"befehl"; z.B.: -->"cd .."
 und sind ohne -->" " einzugeben, innerhalb der Gaensefuesschen ist die Unterscheidung zwischen
 ein- und zweifachen Gaensefuesschen wichtig!
 
-Raspi-Zero mit naktem raspios vorbereiten und einloggen
--->"sudo raspi-config"
+# Raspi-Zero mit naktem raspios vorbereiten und einloggen
+-->"sudo raspi-config"\
 im Menue Interface-options->Serial Port: Wählen Sie zuerst keine Shell ueber
-die serielle Schnittstelle und aktivieren Sie den Hardwarezugriff auf die serielle Schnittstelle
-Aendern Sie im Menue System->Hostname den Hostnamen in "pi0"
+die serielle Schnittstelle und aktivieren Sie den Hardwarezugriff auf die serielle Schnittstelle.
+Aendern Sie im Menue System->Hostname den Hostnamen in "pi0"\
 
-SSH Konfiguration
-auf dem Raspi-Zero ssh-Schluessel erzeugen
--->"ssh-keygen -t rsa"
-den Schluessel auf den Entwicklungsrechner übertragen
--->"ssh-copy-id -i ~/.ssh/id_rsa.pub user@remote-system"
+# SSH Konfiguration
+auf dem Raspi-Zero ssh-Schluessel erzeugen\
+-->"ssh-keygen -t rsa"\
+den Schluessel auf den Entwicklungsrechner übertragen\
+-->"ssh-copy-id -i ~/.ssh/id_rsa.pub user@remote-system"\
 dise Prozedur ist auf dem Entwicklungsrechner ebenso durchzufuehren
-auf dem Entwicklungsrechner ssh-Schluessel erzeugen
--->"ssh-keygen -t rsa"
-den Schluessel auf den Raspi-Zero übertragen
--->"ssh-copy-id -i ~/.ssh/id_rsa.pub momefilo@pi0"
+auf dem Entwicklungsrechner ssh-Schluessel erzeugen\
+-->"ssh-keygen -t rsa"\
+den Schluessel auf den Raspi-Zero übertragen\
+-->"ssh-copy-id -i ~/.ssh/id_rsa.pub momefilo@pi0"\
 
-OpenOCD auf Paspi-Zero installieren
-Pinkonfiguration: swdio -> gpio24, swckl -> gpio25, GND -> GND
--->"sudo apt update"
--->"sudo apt upgrade"
--->"sudo apt install automake autoconf build-essential texinfo libtool libftdi-dev libusb-1.0-0-dev git minicom"
--->"git clone https://github.com/raspberrypi/openocd.git --branch rp2040 --recursive --depth=1"
--->"cd openocd"
--->"./bootstrap"
--->"./configure --enable-ftdi --enable-sysfsgpio --enable-bcm2835gpio"
--->"make"
--->"sudo make install"
-erstelle die ausfuehrbare Datei transfer.sh
--->"cd .."
--->"touch transfer.sh"
--->"chmod +x transfer.sh"
--->"echo '#!/bin/bash' >> transfer.sh"
--->"echo 'openocd -f interface/raspberrypi-swd.cfg -f target/rp2040.cfg -c "program /home/momefilo/$1 verify reset exit" && rm /home/momefilo/$1' >> transfer.sh"
+# OpenOCD auf Paspi-Zero installieren
+Pinkonfiguration: swdio -> gpio24, swckl -> gpio25, GND -> GND\
+-->"sudo apt update"\
+-->"sudo apt upgrade"\
+-->"sudo apt install automake autoconf build-essential texinfo libtool libftdi-dev libusb-1.0-0-dev git minicom"\
+-->"git clone https://github.com/raspberrypi/openocd.git --branch rp2040 --recursive --depth=1"\
+-->"cd openocd"\
+-->"./bootstrap"\
+-->"./configure --enable-ftdi --enable-sysfsgpio --enable-bcm2835gpio"\
+-->"make"\
+-->"sudo make install"\
+erstelle die ausfuehrbare Datei transfer.sh\
+-->"cd .."\
+-->"touch transfer.sh"\
+-->"chmod +x transfer.sh"\
+-->"echo '#!/bin/bash' >> transfer.sh"\
+-->"echo 'openocd -f interface/raspberrypi-swd.cfg -f target/rp2040.cfg -c "program /home/momefilo/$1 verify reset exit" && rm /home/momefilo/$1' >> transfer.sh"\
 
-#ON THE DEVELOPING MASCHINE
-Das Pico-Sdk und Geany auf dem Entwicklungsrechner installieren
--->"sudo apt update"
--->"sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential geany git"
--->"mkdir pico"
--->"cd pico"
--->"git clone https://github.com/raspberrypi/pico-sdk.git --branch master"
--->"cd pico-sdk"
--->"git submodule update --init"
--->"cd .."
--->"git clone https://github.com/raspberrypi/pico-examples.git --branch master"
+# ON THE DEVELOPING MASCHINE
+Das Pico-Sdk und Geany auf dem Entwicklungsrechner installieren\
+-->"sudo apt update"\
+-->"sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential geany git"\
+-->"mkdir pico"\
+-->"cd pico"\
+-->"git clone https://github.com/raspberrypi/pico-sdk.git --branch master"\
+-->"cd pico-sdk"\
+-->"git submodule update --init"\
+-->"cd .."\
+-->"git clone https://github.com/raspberrypi/pico-examples.git --branch master"\
 
-Fuegen Sie am Ende der Datei ".bashrc" folgende Zeilen hinzu
--->"echo 'export PICO_SDK_PATH=/home/momefilo/pico/pico-sdk' >> ~/.bashrc"
--->"echo 'export pico_serial=/home/momefilo/pico/serial' >> ~/.bashrc"
--->"echo 'export pico_transfer=/home/momefilo/pico/transfer' >> ~/.bashrc"
--->"echo 'export pico_project=/home/momefilo/pico/new_project' >> ~/.bashrc"
-Erstellen Sie die Dateien transfer und serial mit folgendem Inhalt
--->"touch transfer"
--->"chmod +x transfer"
--->"echo '#!/bin/bash' >> transfer"
--->"echo 'scp $1 pi0:/home/momefilo/ && \' >> transfer"
--->"echo 'ssh pi0 -t "/home/momefilo/transfer.sh $1"' >> transfer"
--->"touch serial"
--->"chmod +x serial"
--->"echo '#!/bin/bash' >> serial"
--->"echo 'ssh pi0 -t "minicom -b 115200 -o -D /dev/serial0"' >> serial"
--->"mkdir projekte"
--->"cd projekte"
--->"mkdir remote"
--->"cd .."
+Fuegen Sie am Ende der Datei ".bashrc" folgende Zeilen hinzu\
+-->"echo 'export PICO_SDK_PATH=/home/momefilo/pico/pico-sdk' >> ~/.bashrc"\
+-->"echo 'export pico_serial=/home/momefilo/pico/serial' >> ~/.bashrc"\
+-->"echo 'export pico_transfer=/home/momefilo/pico/transfer' >> ~/.bashrc"\
+-->"echo 'export pico_project=/home/momefilo/pico/new_project' >> ~/.bashrc"\
+Erstellen Sie die Dateien transfer und serial mit folgendem Inhalt\
+-->"touch transfer"\
+-->"chmod +x transfer"\
+-->"echo '#!/bin/bash' >> transfer"\
+-->"echo 'scp $1 pi0:/home/momefilo/ && \' >> transfer"\
+-->"echo 'ssh pi0 -t "/home/momefilo/transfer.sh $1"' >> transfer"\
+-->"touch serial"\
+-->"chmod +x serial"\
+-->"echo '#!/bin/bash' >> serial"\
+-->"echo 'ssh pi0 -t "minicom -b 115200 -o -D /dev/serial0"' >> serial"\
+-->"mkdir projekte"\
+-->"cd projekte"\
+-->"mkdir remote"\
+-->"cd .."\
 
-Erstellen Sie die Dateien "new_project" mit folgendem Inhalt und machen Sie sie mit 
--->"chmod +x new_project"
-ausfuehrbar.
-Copy and Paste mit dem Editor!
+Erstellen Sie die Dateien "new_project" mit folgendem Inhalt und machen Sie sie mit\
+-->"chmod +x new_project"\
+ausfuehrbar.\
+Copy and Paste mit dem Editor!\
 -->"
 #!/bin/bash
 if [ $# -ne 1 ]; then
@@ -160,7 +160,7 @@ echo "projekt schon vorhanden!"
 fi
 "
 
-Wenn Sie nun am Entwicklungsrechner in einem neuen Terminal (damit die Variablen geladen werden) ins Verzeichnis Pico wechseln, koennen Sie 
+Wenn Sie nun am Entwicklungsrechner in einem neuen Terminal (damit die Variablen geladen werden) ins Verzeichnis pico wechseln, koennen Sie 
 durch Eingabe von: "./new_project Ihr_Projektname" direkt Geany mit einem
 Grundskelet starten. Mit F9 bilden Sie Ihr Programm erstmals (vergessen Sie die main Funktion nicht hinzuzufügen;) um es dann 
 mit ^F9 immer wieder compilieren zu koennen. Das Programm wird mit F5 auf den Pico uebertragen.
