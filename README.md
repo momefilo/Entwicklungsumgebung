@@ -166,5 +166,5 @@ durch Eingabe von: "./new_project Ihr_Projektname" direkt Geany mit einem
 Grundskelet starten. Mit F9 bilden Sie Ihr Programm erstmals (vergessen Sie die main Funktion nicht hinzuzufügen;) um es dann 
 mit ^F9 immer wieder compilieren zu koennen. Das Programm wird mit F5 auf den Pico uebertragen.
 Im Geany-Menue "Erstellen" gibt es  den Eintrag "serial" welcher ein Terminal oeffnet, wenn sie die serielle Verbindung
-zwichen Pi-Pico und Raspi-Zerodurch zwei drähte hergestellt haben sind die "printf()-Ausgaben" Ihres Programms im Terminal zu sehen.
+zwichen Pi-Pico und Raspi-Zerodurch zwei drähte hergestellt haben (Pico0->ZeroRXD, Pico1->ZeroTXD) sind die zum debuggen unerlaesslichen "printf()-Ausgaben" Ihres Programms im Terminal zu sehen.
 
