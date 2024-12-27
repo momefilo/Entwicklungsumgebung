@@ -1,5 +1,5 @@
 # Entwicklungsumgebung
-Pi Pico enwicklungsumgebung\
+Pi Pico enwicklungsumgebung mit RPI zero als headNwireless-Bruecke zur Developmaschine\
 Auf dem Entwicklungsrechner sollte der Benutzer "momefilo" aktiv sein, sonnst sind im Script die Passagen der Verzeichnisse anzupassen.
 Alle einzugebenden Befehle sehen so aus: -->"befehl"; z.B.: -->"cd .."
 und sind ohne -->" " einzugeben, innerhalb der Gaensefuesschen ist die Unterscheidung zwischen
@@ -57,6 +57,7 @@ Fuegen Sie am Ende der Datei ".bashrc" folgende Zeilen hinzu\
 -->"echo 'export pico_serial=/home/momefilo/pico/serial' >> ~/.bashrc"\
 -->"echo 'export pico_transfer=/home/momefilo/pico/transfer' >> ~/.bashrc"\
 -->"echo 'export pico_project=/home/momefilo/pico/new_project' >> ~/.bashrc"\
+
 Erstellen Sie die Dateien transfer und serial mit folgendem Inhalt\
 -->"touch transfer"\
 -->"chmod +x transfer"\
@@ -165,5 +166,5 @@ durch Eingabe von: "./new_project Ihr_Projektname" direkt Geany mit einem
 Grundskelet starten. Mit F9 bilden Sie Ihr Programm erstmals (vergessen Sie die main Funktion nicht hinzuzufügen;) um es dann 
 mit ^F9 immer wieder compilieren zu koennen. Das Programm wird mit F5 auf den Pico uebertragen.
 Im Geany-Menue "Erstellen" gibt es  den Eintrag "serial" welcher ein Terminal oeffnet, wenn sie die serielle Verbindung
-zwichen Pi-Pico und Raspi-Zerodurch zwei drähte hergestellt haben sind die "printf()-Ausgaben" Ihres Programms sehen koennen.
+zwichen Pi-Pico und Raspi-Zerodurch zwei drähte hergestellt haben sind die "printf()-Ausgaben" Ihres Programms im Terminal zu sehen.
 
