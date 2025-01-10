@@ -11,7 +11,7 @@ find="\/"
 replace="%2F"
 # notice the the str isn't prefixed with $
 #    this is just how this feature works :/
-AKRONYM==${BASE_PFAD//$find/$replace}
+AKRONYM=${BASE_PFAD//$find/$replace}
 if ! [ -d $PFAD ]; then
 mkdir -p $PFAD/build
 cp ${SCRIPTDIR}/pico-sdk/external/pico_sdk_import.cmake $PFAD/pico_sdk_import.cmake
