@@ -22,7 +22,7 @@ echo "export pico_serial=${SCRIPTDIR}/pico/serial" >> ~/.bashrc
 echo "export pico_transfer=${SCRIPTDIR}/pico/transfer" >> ~/.bashrc
 echo "export pico_project=${SCRIPTDIR}/pico/new_project" >> ~/.bashrc
 
-Erstellen Sie die Dateien transfer und serial mit folgendem Inhalt
+#Erstellen Sie die Dateien transfer und serial mit folgendem Inhalt
 touch transfer.sh
 chmod +x transfer.sh
 echo '#!/bin/bash' > transfer.sh
