@@ -40,7 +40,7 @@ EX_01_CM=${BASE_PFAD}/serial.sh" >> $PFAD/$1.geany
 	echo "name=$1" >> $PFAD/$1.geany
 	echo "description=" >> $PFAD/$1.geany
 	echo "file_patterns=" >> $PFAD/$1.geany
-	echo "base_path=${SCRIPTDIR}/projekte/remote/$1" >> $PFAD/$1.geany
+	echo "base_path=${SCRIPTDIR}/projekte/geany/$1" >> $PFAD/$1.geany
 	echo -e "[files] current_page=0 FILE_NAME_0=0;C;0;EUTF-8;1;1;0;${AKRONYM}%2F$1%2F$1.c;0;4 FILE_NAME_1=0;CMake;0;EUTF-8;1;1;0;${AKRONYM}%2F$1%2FCMakeLists.txt;0;4 [VTE] last_dir=${BASE_PFAD}/$1/build" >> $PFAD/$1.geany
 	echo -e '// momefilo Desing\n#include <stdio.h>\n#include "pico/stdlib.h"' > $PFAD/$1.c
 	echo -e "cmake_minimum_required(VERSION 3.13)
