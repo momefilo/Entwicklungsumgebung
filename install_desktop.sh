@@ -7,7 +7,7 @@ SCRIPTDIR=$(cd `dirname $0` && pwd)
 
 #Das Pico-Sdk und Geany auf dem Entwicklungsrechner installieren
 sudo apt update
-sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential geany git
+sudo apt install cmake gcc-arm-none-eabi libnewlib-arm-none-eabi build-essential geany git -y
 mkdir pico
 cd pico
 git clone https://github.com/raspberrypi/pico-sdk.git --branch master
