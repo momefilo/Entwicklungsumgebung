@@ -1,5 +1,5 @@
 # Entwicklungsumgebung
-Siehe PiZero-wlan-debug.pdf
+Siehe PiZero-wlan-debug.pdf\
 Pi Pico enwicklungsumgebung mit RPI zero als headNwireless-Bruecke zur Developmaschine\
 Auf beiden Maschinen mus der gleiche username benutzt werden mit inen /home/user/ Verzeichniss\
 
