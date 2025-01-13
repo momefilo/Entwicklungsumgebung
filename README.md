@@ -5,6 +5,8 @@ Bild unten verbunden ist, und in dessen raspi-config die Loginshell über
 die serielle Konsole deativiert und der Hardware-Zugriff aktiviert sind,
 und einen Rpi/Linuxrechner im gleichem wlan zum entwickeln. Auf beiden
 Rechnern muss der Benutzer ein „/home/user/"-Verzeichniss haben.
+Geany muss beim debuggen von pico-c-sdk-Projekten immer aus der Konsole
+gestartet werden um die Umgebungsvariablen zu laden!
 
 > ![](vertopal_9ea36361e9a144fa9e91d8b49c0476c0/media/image1.png)
 >
@@ -34,7 +36,6 @@ Rechnern muss der Benutzer ein „/home/user/"-Verzeichniss haben.
 > 4\. **new_lib.sh**\
 > Aufruf mit Projektname und Bibliotheksname als Parameter aus
 > „/home/user/pico/ heraus.
->
 > Erstellt neue Bibliotheken-Grundgerueste in einem bereits vorhandenem
 > Projekt\
 > Es wird das Unterverzeichniss im Projektverzeichniss erstellt sowie
