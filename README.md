@@ -46,7 +46,7 @@ gestartet werden um die Umgebungsvariablen zu laden!
 
 **SSH-Konfiguration**
 
-auf dem Entwicklungsrechner ssh-Schluessel erzeugen\--\>\"ssh-keygen -t
-rsa\"\
+auf dem Entwicklungsrechner ssh-Schluessel erzeugen\
+--\>\"ssh-keygen -t rsa\"\
 den Schluessel auf den Raspi-Zero übertragen\
 \--\>\"ssh-copy-id -i \~/.ssh/id_rsa.pub user@bridge-hostname\"
