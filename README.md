@@ -1,7 +1,7 @@
 # Entwicklungsumgebung
 Siehe PiZero-wlan-debug.pdf\
 Pi Pico enwicklungsumgebung mit RPI zero als headNwireless-Bruecke zur Developmaschine\
-Auf beiden Maschinen mus der gleiche username benutzt werden mit inen /home/user/ Verzeichniss
+Auf beiden Maschinen mus der gleiche username benutzt werden mit einem /home/user/ Verzeichniss
 
 install_bridge.sh\
 Installiert und konfiguriert einen PiZeroW als debugging-Bridge zur Entwicklermaschine\
