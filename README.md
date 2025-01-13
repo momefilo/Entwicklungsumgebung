@@ -13,7 +13,7 @@ Rechnern muss der Benutzer ein „/home/user/"-Verzeichniss haben.
 >
 > installiert und konfiguriert auf der Brücke alles nötige und rebootet.
 > danach kann vom Entwicklungrechner aus die elf-Datei übertragen und
-> die serielle Konsole zum pico geöffnet werden.
+> die serielle Konsole zum pico geöffnet werden. Dauer auf einem Pi-zero 60 min.
 >
 > 2\. **install_desktop.sh**\
 > muss aus „/home/user/" **ohne** sudo aufgerufen werden!
