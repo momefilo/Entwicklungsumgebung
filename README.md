@@ -6,8 +6,7 @@ die serielle Konsole deativiert und der Hardware-Zugriff aktiviert sind,
 und einen Rpi/Linuxrechner im gleichem wlan zum entwickeln. Auf beiden
 Rechnern muss der Benutzer ein „/home/user/"-Verzeichniss haben.
 
-> ![](vertopal_9ea36361e9a144fa9e91d8b49c0476c0/media/image1.png){width="4.2125in"
-> height="3.9583333333333335in"}
+> ![](vertopal_9ea36361e9a144fa9e91d8b49c0476c0/media/image1.png)
 >
 > 1\. **install_bridge.sh**\
 > muss aus „/home/user/" **mit** sudo aufgerufen werden!
