@@ -7,10 +7,10 @@ install_bridge.sh\
 Installiert und konfiguriert einen PiZeroW als debugging-Bridge zur Entwicklermaschine\
 In der raspi-config muss die Loginshell für die serielle Konsole deaktiviert, und der Hardwarezugriff aktiviert sein
 
-install_desktop.sh
+install_desktop.sh\
 Installiert und konfiguriert eine Linuxmaschine mit Geany und ladet new_projekt.sh zur Ausführung in Geany\
 
-new_projekt.sh
+new_projekt.sh\
 Erstellt eine Geany-Konfigurationsdatei so das in Geany mit Menue oder Funktionstasten gebuildet, kompiliert und auf des pico uebertragen werden kann sowie die serielle Konsole zum debuggen ueber printf-Anweisungen geoeffnet\
 Als parameter muss der Projektname mit angegeben werden\
 
