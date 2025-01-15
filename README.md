@@ -18,7 +18,7 @@ gestartet werden um die Umgebungsvariablen zu laden!
 > die serielle Konsole zum pico geöffnet werden. Dauer auf einem Pi-zero 60 min.
 >
 > 2\. **install_desktop.sh**\
-> muss aus „/home/user/" **ohne** sudo aufgerufen werden!
+> muss aus „/home/user/" **ohne** sudo mit dem Hostnamen der Bridge als Parameter aufgerufen werden!
 >
 > Installiert das pico-c-sdk und legt drei skripte, darunter
 > „new_projekt.sh" in „/home/user/pico/" an die von Geany als IDE zur
