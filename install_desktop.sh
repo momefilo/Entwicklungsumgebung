@@ -38,3 +38,5 @@ mkdir geany
 cd ..
 wget https://raw.githubusercontent.com/momefilo/Entwicklungsumgebung/refs/heads/main/new_projekt.sh
 chmod +x new_projekt.sh
+wget https://raw.githubusercontent.com/momefilo/Entwicklungsumgebung/refs/heads/main/new_lib.sh
+chmod +x new_lib.sh
