@@ -83,6 +83,9 @@ set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
 pico_sdk_init()
 add_executable($1 $1.c )
+
+# Bibliotheksverzeichnisse
+
 target_link_libraries($1 pico_stdlib)
 pico_add_extra_outputs($1)" > $PFAD/CMakeLists.txt
 geany $PFAD/$1.geany 
