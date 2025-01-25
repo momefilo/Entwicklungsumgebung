@@ -16,11 +16,8 @@ git submodule update --init
 cd ..
 git clone https://github.com/raspberrypi/pico-examples.git --branch master
 
-#Fuege am Ende der Datei ".bashrc" folgende Zeilen hinzu
+#Fuege am Ende der Datei ".bashrc" folgende Zeile hinzu
 echo "export PICO_SDK_PATH=${SCRIPTDIR}/pico/pico-sdk" >> ~/.bashrc
-echo "export pico_serial=${SCRIPTDIR}/pico/serial" >> ~/.bashrc
-echo "export pico_transfer=${SCRIPTDIR}/pico/transfer" >> ~/.bashrc
-echo "export pico_project=${SCRIPTDIR}/pico/new_project" >> ~/.bashrc
 
 #Erstellen Sie die Dateien transfer und serial mit folgendem Inhalt
 touch transfer.sh
