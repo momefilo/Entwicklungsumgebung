@@ -1,0 +1,2 @@
+sudo cp splash.png /usr/share/plymouth/themes/pix/splash.png
+sudo plymouth-set-default-theme --rebuild-initrd pix
