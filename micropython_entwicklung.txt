@@ -12,7 +12,7 @@ make BOARD=RPI_PICO_W
 cd build-RPI_PICO_W
 
 #transfer firmaware
-~/pico/transfer firmaware.elf
+~/pico/transfer.sh firmware.elf
 
 # start python REPL
 ssh pi0 -t "minicom -b 115200 -o -D /dev/serial0"
