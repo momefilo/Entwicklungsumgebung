@@ -1,0 +1,27 @@
+mkdir pico_w
+cd pico_w
+git clone https://github.com/micropython/micropython.git --branch master
+git clone https://github.com/micropython/micropython-lib.git --branch master
+cd micropython
+# in ports/rp2/mpconfigport.h ändere #define MICROPY_HW_ENABLE_UART_REPL 1
+# in ports/rp2/modules könen eine main.py(Autostart, nicht ueberschreibbar) und andere module mit eingebunden werden
+make -C ports/rp2 BOARD=RPI_PICO_W submodules
+make -C mpy-cross
+cd ports/rp2
+make BOARD=RPI_PICO_W
+cd build-RPI_PICO_W
+
+#transfer firmaware
+~/pico/transfer firmaware.elf
+
+# start python REPL
+ssh pi0 -t "minicom -b 115200 -o -D /dev/serial0"
+
+# auf der wlan-debug-bridge
+sudo apt update
+sudo apt install python3-pip
+sudo mv /usr/lib/python3.11/EXTERNALLY-MANAGED /usr/lib/python3.11/EXTERNALLY-MANAGED.orig
+pip install rshell
+pip install ampy
+rshell -p /dev/serial0 cp /home/momefilo/$1 /pyboard/
+ampy --port /dev/serial0 put $1
