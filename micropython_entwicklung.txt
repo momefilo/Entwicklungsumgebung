@@ -27,43 +27,56 @@ target_include_directories(usermod_mandelbrodt INTERFACE
 # Link our INTERFACE library to the usermod target.
 target_link_libraries(usermod INTERFACE usermod_mandelbrodt)' >> module/mandelbrodt/micropython.cmake
 echo '
-// Include MicroPython API.
 #include "py/runtime.h"
 
-// Used to get the time in the Timer class example.
-#include "py/mphal.h"
-
-// This is the function which will be called from Python as cexample.add_ints(a, b).
-static mp_obj_t example_add_ints(mp_obj_t a_obj, mp_obj_t b_obj) {
-    // Extract the ints from the micropython input objects.
-    int a = mp_obj_get_int(a_obj);
-    int b = mp_obj_get_int(b_obj);
-
-    // Calculate the addition and convert to MicroPython object.
-    return mp_obj_new_int(a + b);
+static mp_obj_t get(
+        mp_obj_t real_obj,
+        mp_obj_t imag_obj,
+        mp_obj_t itercount_obj) {
+    mp_float_t real = mp_obj_get_float(real_obj);
+    mp_float_t imag = mp_obj_get_float(imag_obj);
+    mp_int_t itercount = mp_obj_get_int(itercount_obj);
+    mp_int_t ret_val;
+    
+    double r = 0;
+    double i = 0;
+    double array[] = {0, 0, real, imag};
+    int count = 0;
+    while (count < itercount){
+        count++;
+        r = array[0]*array[0] - array[1]*array[1] - array[2];
+        i = array[0]*array[1] + array[0]*array[1] - array[0];
+        if ((r*r + i*i) >=4){
+            ret_val = count;
+            return mp_obj_new_int(ret_val);
+        }
+        array[0] = r;
+        array[1] = i;
+    }
+    ret_val = 0;
+    return mp_obj_new_int(ret_val);
 }
-// Define a Python reference to the function above.
-static MP_DEFINE_CONST_FUN_OBJ_2(example_add_ints_obj, example_add_ints);
+static MP_DEFINE_CONST_FUN_OBJ_3(get_obj, get);
 
 // Define all attributes of the module.
 // Table entries are key/value pairs of the attribute name (a string)
 // and the MicroPython object reference.
 // All identifiers and strings are written as MP_QSTR_xxx and will be
 // optimized to word-sized integers by the build system (interned strings).
-static const mp_rom_map_elem_t example_module_globals_table[] = {
-    { MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_cexample) },
-    { MP_ROM_QSTR(MP_QSTR_add_ints), MP_ROM_PTR(&example_add_ints_obj) },
+static const mp_rom_map_elem_t mandelbrodt_module_globals_table[] = {
+    { MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_mandelbrodt) },
+    { MP_ROM_QSTR(MP_QSTR_get), MP_ROM_PTR(&get_obj) },
 };
-static MP_DEFINE_CONST_DICT(example_module_globals, example_module_globals_table);
+static MP_DEFINE_CONST_DICT(mandelbrodt_module_globals, mandelbrodt_module_globals_table);
 
 // Define module object.
-const mp_obj_module_t example_user_cmodule = {
+const mp_obj_module_t mandelbrodt_user_cmodule = {
     .base = { &mp_type_module },
-    .globals = (mp_obj_dict_t *)&example_module_globals,
+    .globals = (mp_obj_dict_t *)&mandelbrodt_module_globals,
 };
 
 // Register the module to make it available in Python.
-MP_REGISTER_MODULE(MP_QSTR_mandelbrodt, example_user_cmodule);' >> module/mandelbrodt/mandelbrodt.c
+MP_REGISTER_MODULE(MP_QSTR_mandelbrodt, mandelbrodt_user_cmodule);' >> module/mandelbrodt/mandelbrodt.c
 
 git clone https://github.com/micropython/micropython.git --branch master
 git clone https://github.com/micropython/micropython-lib.git --branch master
@@ -97,4 +110,3 @@ pip install rshell
 pip install ampy
 rshell -p /dev/serial0 cp /home/momefilo/$1 /pyboard/
 ampy --port /dev/serial0 put $1
-
