@@ -44,7 +44,7 @@ static mp_obj_t get(
     while (count < itercount){
         count++;
         r = array[0]*array[0] - array[1]*array[1] - array[2];
-        i = array[0]*array[1] + array[0]*array[1] - array[0];
+        i = array[0]*array[1] + array[0]*array[1] - array[3];
         if ((r*r + i*i) >=4){
             ret_val = count;
             return mp_obj_new_int(ret_val);
