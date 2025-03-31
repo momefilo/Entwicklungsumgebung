@@ -9,7 +9,8 @@ SRC_USERMOD += $(MANDELBRODT_MOD_DIR)/mandelbrodt.c
 
 # We can add our module folder to include paths if needed
 # This is not actually needed in this example.
-CFLAGS_USERMOD += -I$(MANDELBRODT_MOD_DIR)' >> module/mandelbrodt/micropython.mk
+CFLAGS_USERMOD += -I$(MANDELBRODT_MOD_DIR)
+' >> module/mandelbrodt/micropython.mk
 echo '
 # Create an INTERFACE library for our C module.
 add_library(usermod_mandelbrodt INTERFACE)
