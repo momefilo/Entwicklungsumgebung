@@ -14,19 +14,17 @@ CFLAGS_USERMOD += -I$(MANDELBRODT_MOD_DIR)
 echo '
 # Create an INTERFACE library for our C module.
 add_library(usermod_mandelbrodt INTERFACE)
-
 # Add our source files to the lib
 target_sources(usermod_mandelbrodt INTERFACE
     ${CMAKE_CURRENT_LIST_DIR}/mandelbrodt.c
 )
-
 # Add the current directory as an include directory.
 target_include_directories(usermod_mandelbrodt INTERFACE
     ${CMAKE_CURRENT_LIST_DIR}
 )
-
 # Link our INTERFACE library to the usermod target.
-target_link_libraries(usermod INTERFACE usermod_mandelbrodt)' >> module/mandelbrodt/micropython.cmake
+target_link_libraries(usermod INTERFACE usermod_mandelbrodt)
+' >> module/mandelbrodt/micropython.cmake
 echo '
 #include "py/runtime.h"
 
@@ -77,7 +75,8 @@ const mp_obj_module_t mandelbrodt_user_cmodule = {
 };
 
 // Register the module to make it available in Python.
-MP_REGISTER_MODULE(MP_QSTR_mandelbrodt, mandelbrodt_user_cmodule);' >> module/mandelbrodt/mandelbrodt.c
+MP_REGISTER_MODULE(MP_QSTR_mandelbrodt, mandelbrodt_user_cmodule);
+' >> module/mandelbrodt/mandelbrodt.c
 
 git clone https://github.com/micropython/micropython.git --branch master
 git clone https://github.com/micropython/micropython-lib.git --branch master
@@ -90,12 +89,12 @@ make -j4 -C mpy-cross
 cd ports/rp2_momefilo
 make -j4 USER_C_MODULES=../../../module/micropython.cmake BOARD=RPI_PICO_W
 cd build-RPI_PICO_W
-#zum rekompilieren ändere mandelbrodt.c
+# zum rekompilieren ändere mandelbrodt.c
 cd ports/rp2_momefilo
 make BOARD=RPI_PICO_W clean
 make -j4 USER_C_MODULES=../../../module/micropython.cmake BOARD=RPI_PICO_W
 
-#transfer firmaware
+# transfer firmaware
 ~/pico/transfer.sh firmware.elf
 
 # start python REPL
