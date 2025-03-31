@@ -27,7 +27,7 @@ target_link_libraries(usermod INTERFACE usermod_mandelbrodt)
 ' >> module/mandelbrodt/micropython.cmake
 echo '
 #include "py/runtime.h"
-
+// see: https://mpy-c-gen.oliverrobson.tech/
 static mp_obj_t get(
         mp_obj_t real_obj,
         mp_obj_t imag_obj,
