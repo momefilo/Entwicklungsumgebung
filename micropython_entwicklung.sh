@@ -3,10 +3,8 @@ cd mpython
 echo 'include(${CMAKE_CURRENT_LIST_DIR}/mandelbrodt/micropython.cmake)' >> module/micropython.cmake
 echo '
 MANDELBRODT_MOD_DIR := $(USERMOD_DIR)
-
 # Add all C files to SRC_USERMOD.
 SRC_USERMOD += $(MANDELBRODT_MOD_DIR)/mandelbrodt.c
-
 # We can add our module folder to include paths if needed
 # This is not actually needed in this example.
 CFLAGS_USERMOD += -I$(MANDELBRODT_MOD_DIR)
@@ -57,18 +55,12 @@ static mp_obj_t get(
 }
 static MP_DEFINE_CONST_FUN_OBJ_3(get_obj, get);
 
-// Define all attributes of the module.
-// Table entries are key/value pairs of the attribute name (a string)
-// and the MicroPython object reference.
-// All identifiers and strings are written as MP_QSTR_xxx and will be
-// optimized to word-sized integers by the build system (interned strings).
 static const mp_rom_map_elem_t mandelbrodt_module_globals_table[] = {
     { MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_mandelbrodt) },
     { MP_ROM_QSTR(MP_QSTR_get), MP_ROM_PTR(&get_obj) },
 };
 static MP_DEFINE_CONST_DICT(mandelbrodt_module_globals, mandelbrodt_module_globals_table);
 
-// Define module object.
 const mp_obj_module_t mandelbrodt_user_cmodule = {
     .base = { &mp_type_module },
     .globals = (mp_obj_dict_t *)&mandelbrodt_module_globals,
@@ -88,13 +80,12 @@ make -j4 -C ports/rp2_momefilo BOARD=RPI_PICO_W submodules
 make -j4 -C mpy-cross
 cd ports/rp2_momefilo
 make -j4 USER_C_MODULES=../../../module/micropython.cmake BOARD=RPI_PICO_W
-cd build-RPI_PICO_W
 # zum rekompilieren ändere mandelbrodt.c
-cd ports/rp2_momefilo
 make BOARD=RPI_PICO_W clean
 make -j4 USER_C_MODULES=../../../module/micropython.cmake BOARD=RPI_PICO_W
 
 # transfer firmaware
+cd build-RPI_PICO_W
 ~/pico/transfer.sh firmware.elf
 
 # start python REPL
