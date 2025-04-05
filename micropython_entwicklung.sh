@@ -76,9 +76,10 @@ cd micropython
 cp -r ports/rp2 ports/rp2_momefilo
 # in ports/rp2_momefilo/mpconfigport.h ändere #define MICROPY_HW_ENABLE_UART_REPL 1
 # in ports/rp2_momefilo/modules könen eine main.py(Autostart, nicht ueberschreibbar) und andere module mit eingebunden werden
-make -j4 -C ports/rp2_momefilo BOARD=RPI_PICO_W submodules
 make -j4 -C mpy-cross
 cd ports/rp2_momefilo
+make -j4 BOARD=RPI_PICO_W submodules
+#Edit File micropython/lib/pico-sdk/tools/Findpicotool.cmake Zeile 40. Ändere "GIT_TAG develop" in "GIT_TAG master"
 make -j4 USER_C_MODULES=../../../module/micropython.cmake BOARD=RPI_PICO_W
 # zum rekompilieren ändere mandelbrodt.c
 make BOARD=RPI_PICO_W clean
