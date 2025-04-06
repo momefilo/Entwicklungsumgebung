@@ -1,3 +1,4 @@
+sudo apt-get install build-essential libffi-dev git pkg-config gcc-arm-none-eabi libnewlib-arm-none-eabi -y
 mkdir -p mpython/module/mandelbrodt
 cd mpython
 echo 'include(${CMAKE_CURRENT_LIST_DIR}/mandelbrodt/micropython.cmake)' >> module/micropython.cmake
