@@ -1,105 +1,109 @@
+#!/bin/bash
+# script zur installation einer micropython Entwicklungsumgebung auf RPi
+
+# Software installieren
 sudo apt-get install build-essential libffi-dev git pkg-config gcc-arm-none-eabi libnewlib-arm-none-eabi -y
-mkdir -p mpython/module/mandelbrodt
-cd mpython
-echo 'include(${CMAKE_CURRENT_LIST_DIR}/mandelbrodt/micropython.cmake)' >> module/micropython.cmake
+
+# Verzeichnis und Demo-dateien erstellen
+mkdir -p python/module/demo
+cd python
+#touch module/demo/micropython.mk
+echo 'include(${CMAKE_CURRENT_LIST_DIR}/demo/micropython.cmake)' >> module/micropython.cmake
 echo '
-MANDELBRODT_MOD_DIR := $(USERMOD_DIR)
-# Add all C files to SRC_USERMOD.
-SRC_USERMOD += $(MANDELBRODT_MOD_DIR)/mandelbrodt.c
+DEMO_MOD_DIR := $(USERMOD_DIR)
+
+SRC_USERMOD += $(DEMO_MOD_DIR)/demo.c
+#SRC_USERMOD += $(DEMO_MOD_DIR)/demo_lib.c
+
 # We can add our module folder to include paths if needed
 # This is not actually needed in this example.
-CFLAGS_USERMOD += -I$(MANDELBRODT_MOD_DIR)
-' >> module/mandelbrodt/micropython.mk
+CFLAGS_USERMOD += -I$(DEMO_MOD_DIR)' >> module/demo/micropython.mk
 echo '
 # Create an INTERFACE library for our C module.
-add_library(usermod_mandelbrodt INTERFACE)
+add_library(usermod_demo INTERFACE)
+
 # Add our source files to the lib
-target_sources(usermod_mandelbrodt INTERFACE
-    ${CMAKE_CURRENT_LIST_DIR}/mandelbrodt.c
+target_sources(usermod_demo INTERFACE
+    ${CMAKE_CURRENT_LIST_DIR}/demo.c
 )
+
 # Add the current directory as an include directory.
-target_include_directories(usermod_mandelbrodt INTERFACE
+target_include_directories(usermod_demo INTERFACE
     ${CMAKE_CURRENT_LIST_DIR}
 )
+
 # Link our INTERFACE library to the usermod target.
-target_link_libraries(usermod INTERFACE usermod_mandelbrodt)
-' >> module/mandelbrodt/micropython.cmake
+target_link_libraries(usermod INTERFACE usermod_demo)' >> module/demo/micropython.cmake
 echo '
+#include <stdio.h>
 #include "py/runtime.h"
-// see: https://mpy-c-gen.oliverrobson.tech/
-static mp_obj_t get(
-        mp_obj_t real_obj,
-        mp_obj_t imag_obj,
-        mp_obj_t itercount_obj) {
-    mp_float_t real = mp_obj_get_float(real_obj);
-    mp_float_t imag = mp_obj_get_float(imag_obj);
-    mp_int_t itercount = mp_obj_get_int(itercount_obj);
-    mp_int_t ret_val;
-    
-    double r = 0;
-    double i = 0;
-    double array[] = {0, 0, real, imag};
-    int count = 0;
-    while (count < itercount){
-        count++;
-        r = array[0]*array[0] - array[1]*array[1] - array[2];
-        i = array[0]*array[1] + array[0]*array[1] - array[3];
-        if ((r*r + i*i) >=4){
-            ret_val = count;
-            return mp_obj_new_int(ret_val);
-        }
-        array[0] = r;
-        array[1] = i;
+
+static mp_obj_t demo_init(size_t n_args, const mp_obj_t *args){
+    if(n_args < 1) {
+        printf("demo.init(liste)");
+        return mp_const_none;
     }
-    ret_val = 0;
-    return mp_obj_new_int(ret_val);
+    mp_obj_iter_buf_t demo_buf;
+    mp_obj_t item, iterable = mp_getiter(args[0], &demo_buf);
+    uint32_t color = 0;
+    uint8_t i = 3;
+    while ((item = mp_iternext(iterable)) != MP_OBJ_STOP_ITERATION) {
+        uint8_t val = mp_obj_get_int(item);
+        color  =  (color | (val << (8 * i)));
+        i--;
+    }
+    return mp_obj_new_int_from_ll(color);
 }
-static MP_DEFINE_CONST_FUN_OBJ_3(get_obj, get);
+MP_DEFINE_CONST_FUN_OBJ_VAR_BETWEEN(demo_init_obj, 0, 1, demo_init);
 
-static const mp_rom_map_elem_t mandelbrodt_module_globals_table[] = {
-    { MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_mandelbrodt) },
-    { MP_ROM_QSTR(MP_QSTR_get), MP_ROM_PTR(&get_obj) },
+static const mp_rom_map_elem_t demo_module_globals_table[] = {
+    { MP_ROM_QSTR(MP_QSTR___name__), MP_ROM_QSTR(MP_QSTR_demo) },
+    { MP_ROM_QSTR(MP_QSTR_init), MP_ROM_PTR(&demo_init_obj) },
 };
-static MP_DEFINE_CONST_DICT(mandelbrodt_module_globals, mandelbrodt_module_globals_table);
+static MP_DEFINE_CONST_DICT(demo_module_globals, demo_module_globals_table);
 
-const mp_obj_module_t mandelbrodt_user_cmodule = {
+const mp_obj_module_t demo_user_cmodule = {
     .base = { &mp_type_module },
-    .globals = (mp_obj_dict_t *)&mandelbrodt_module_globals,
+    .globals = (mp_obj_dict_t *)&demo_module_globals,
 };
 
-// Register the module to make it available in Python.
-MP_REGISTER_MODULE(MP_QSTR_mandelbrodt, mandelbrodt_user_cmodule);
-' >> module/mandelbrodt/mandelbrodt.c
+MP_REGISTER_MODULE(MP_QSTR_demo, demo_user_cmodule);' >> module/demo/demo.c
 
+# micropython downloaden
 git clone https://github.com/micropython/micropython.git --branch master
 git clone https://github.com/micropython/micropython-lib.git --branch master
 cd micropython
-cp -r ports/rp2 ports/rp2_momefilo
-# in ports/rp2_momefilo/mpconfigport.h ändere #define MICROPY_HW_ENABLE_UART_REPL 1
-# in ports/rp2_momefilo/modules könen eine main.py(Autostart, nicht ueberschreibbar) und andere module mit eingebunden werden
+
+# compilieren
+cp -r ports/rp2 ports/rp2_demo
+# in ports/rp2_demo/mpconfigport.h ändere #define MICROPY_HW_ENABLE_UART_REPL (1)
+sed -i '/#define MICROPY_HW_ENABLE_UART_REPL/c #define MICROPY_HW_ENABLE_UART_REPL             (1)' ports/rp2_demo/mpconfigport.h
+# in ports/rp2_demo/modules könen eine main.py(Autostart, nicht ueberschreibbar) und andere module mit eingebunden werden
 make -j4 -C mpy-cross
-cd ports/rp2_momefilo
+cd ports/rp2_demo
 make -j4 BOARD=RPI_PICO_W submodules
-#Edit File micropython/lib/pico-sdk/tools/Findpicotool.cmake Zeile 40. Ändere "GIT_TAG develop" in "GIT_TAG master"
+cmake -DUSER_C_MODULES=/home/momefilo/python/module/micropython.cmake .
 make -j4 USER_C_MODULES=../../../module/micropython.cmake BOARD=RPI_PICO_W
-# zum rekompilieren ändere mandelbrodt.c
-make BOARD=RPI_PICO_W clean
-make -j4 USER_C_MODULES=../../../module/micropython.cmake BOARD=RPI_PICO_W
+#ändere demo.c zum testen
+make -f CMakeFiles/firmware.dir/build.make CMakeFiles/firmware.dir/home/momefilo/python/module/demo/demo.c.o
+#zum rekompilieren
+#make BOARD=RPI_PICO_W clean
+#make -j4 USER_C_MODULES=../../../module/micropython.cmake BOARD=RPI_PICO_W
+# firmware.elf liegt in ports/rp2_demo
 
 # transfer firmaware
-cd build-RPI_PICO_W
-~/pico/transfer.sh firmware.elf
+#~/pico/transfer.sh firmware.elf
 
 # start python REPL
-ssh pi0 -t "minicom -b 115200 -o -D /dev/serial0"
-import mandelbrodt
-print(mandelbrodt.add_ints(1, 3))
+#ssh pi0 -t "minicom -b 115200 -o -D /dev/serial0"
+#import demo
+#demo(init([0xab, 0xba, 0xff])
 
 # auf der wlan-debug-bridge
-sudo apt update
-sudo apt install python3-pip
-sudo mv /usr/lib/python3.11/EXTERNALLY-MANAGED /usr/lib/python3.11/EXTERNALLY-MANAGED.orig
-pip install rshell
-pip install ampy
-rshell -p /dev/serial0 cp /home/momefilo/$1 /pyboard/
-ampy --port /dev/serial0 put $1
+#sudo apt update
+#sudo apt install python3-pip
+#sudo mv /usr/lib/python3.11/EXTERNALLY-MANAGED /usr/lib/python3.11/EXTERNALLY-MANAGED.orig
+#pip install rshell
+#pip install ampy
+#rshell -p /dev/serial0 cp /home/momefilo/$1 /pyboard/
+#ampy --port /dev/serial0 put $1
