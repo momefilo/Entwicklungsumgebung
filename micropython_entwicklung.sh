@@ -91,9 +91,9 @@ make -f CMakeFiles/firmware.dir/build.make CMakeFiles/firmware.dir/home/momefilo
 cd ..
 #make BOARD=RPI_PICO_W clean
 #make -j4 USER_C_MODULES=../../../module/micropython.cmake BOARD=RPI_PICO_W
-# firmware.elf liegt in ports/rp2_demo
 
 # transfer firmaware
+cd ports/rp2_demo
 #~/pico/transfer.sh firmware.elf
 
 # start python REPL
