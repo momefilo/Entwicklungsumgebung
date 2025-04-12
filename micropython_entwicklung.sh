@@ -85,8 +85,10 @@ make -j4 BOARD=RPI_PICO_W submodules
 cmake -DUSER_C_MODULES=/home/momefilo/python/module/micropython.cmake .
 make -j4 USER_C_MODULES=../../../module/micropython.cmake BOARD=RPI_PICO_W
 #ändere demo.c zum testen
+cd build-RPI_PICO_W
 make -f CMakeFiles/firmware.dir/build.make CMakeFiles/firmware.dir/home/momefilo/python/module/demo/demo.c.o
 #zum rekompilieren
+cd ..
 #make BOARD=RPI_PICO_W clean
 #make -j4 USER_C_MODULES=../../../module/micropython.cmake BOARD=RPI_PICO_W
 # firmware.elf liegt in ports/rp2_demo
