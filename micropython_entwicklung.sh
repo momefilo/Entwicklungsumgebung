@@ -2,7 +2,7 @@
 # script zur installation einer micropython Entwicklungsumgebung auf RPi
 
 # Software installieren
-sudo apt-get install build-essential libffi-dev git pkg-config gcc-arm-none-eabi libnewlib-arm-none-eabi -y
+sudo apt-get install cmake build-essential libffi-dev git pkg-config gcc-arm-none-eabi libnewlib-arm-none-eabi -y
 
 # Verzeichnis und Demo-dateien erstellen
 mkdir -p python/module/demo
