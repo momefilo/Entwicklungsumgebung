@@ -85,15 +85,15 @@ make -j4 BOARD=RPI_PICO_W submodules
 cmake -DUSER_C_MODULES=/home/momefilo/python/module/micropython.cmake .
 make -j4 USER_C_MODULES=../../../module/micropython.cmake BOARD=RPI_PICO_W
 #ändere demo.c zum testen
-cd build-RPI_PICO_W
-make -f CMakeFiles/firmware.dir/build.make CMakeFiles/firmware.dir/home/momefilo/python/module/demo/demo.c.o
+#cd build-RPI_PICO_W
+#make -f CMakeFiles/firmware.dir/build.make CMakeFiles/firmware.dir/home/momefilo/python/module/demo/demo.c.o
 #zum rekompilieren
-cd ..
+#cd ..
 #make BOARD=RPI_PICO_W clean
 #make -j4 USER_C_MODULES=../../../module/micropython.cmake BOARD=RPI_PICO_W
 
 # transfer firmaware
-cd ports/rp2_demo
+#cd ports/rp2
 #~/pico/transfer.sh firmware.elf
 
 # start python REPL
