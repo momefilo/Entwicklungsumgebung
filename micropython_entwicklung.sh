@@ -75,12 +75,12 @@ git clone https://github.com/micropython/micropython-lib.git --branch master
 cd micropython
 
 # compilieren
-cp -r ports/rp2 ports/rp2_demo
-# in ports/rp2_demo/mpconfigport.h ändere #define MICROPY_HW_ENABLE_UART_REPL (1)
-sed -i '/#define MICROPY_HW_ENABLE_UART_REPL/c #define MICROPY_HW_ENABLE_UART_REPL             (1)' ports/rp2_demo/mpconfigport.h
-# in ports/rp2_demo/modules könen eine main.py(Autostart, nicht ueberschreibbar) und andere module mit eingebunden werden
+cp -r ports/rp2 ports/rp2_orig
+# in ports/rp2/mpconfigport.h ändere #define MICROPY_HW_ENABLE_UART_REPL (1)
+sed -i '/#define MICROPY_HW_ENABLE_UART_REPL/c #define MICROPY_HW_ENABLE_UART_REPL             (1)' ports/rp2/mpconfigport.h
+# in ports/rp2/modules könen eine main.py(Autostart, nicht ueberschreibbar) und andere module mit eingebunden werden
 make -j4 -C mpy-cross
-cd ports/rp2_demo
+cd ports/rp2
 make -j4 BOARD=RPI_PICO_W submodules
 cmake -DUSER_C_MODULES=/home/momefilo/python/module/micropython.cmake .
 make -j4 USER_C_MODULES=../../../module/micropython.cmake BOARD=RPI_PICO_W
